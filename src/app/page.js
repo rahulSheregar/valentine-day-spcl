@@ -1,10 +1,13 @@
-
-import styles from "./page.module.css";
+import BackgroundContainer from './component/background';
+import CenteredImage from './component/logo';
 export default function Home() {
 
   return (
-    <main className={styles.main}>
-      <h1>main</h1>
-    </main>
+      <div>
+        <link rel="icon" href="/favicon/favicon.ico" sizes="any" />
+        <BackgroundContainer>
+          <CenteredImage src="/logo.png" /> 
+        </BackgroundContainer>
+      </div>
   );
 }
