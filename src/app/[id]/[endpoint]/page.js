@@ -16,12 +16,19 @@ export default function EndpointPage({ params }) {
 
   useEffect(() => {
     const isValidEndpoint = () => {
-      if (jsondata[id] && jsondata[id][endpoint]) {
-        setMessage(jsondata[id][endpoint]); 
-        return true;
-      } else {
-        return false;
+      if (jsondata[id]) {
+        const senderName = jsondata[id].sender;
+        const recipientName = jsondata[id].recipient;
+        const [senderNameFromUrl, action, recipientNameFromUrl] = endpoint.split('_');
+        console.log(senderName,senderNameFromUrl);
+        console.log(recipientName,recipientNameFromUrl);
+        if (senderName === senderNameFromUrl && recipientName === recipientNameFromUrl) {
+          setMessage(jsondata[id].message);
+          return true;
+        }
       }
+    
+      return false;
     };
 
     const isValid = isValidEndpoint();
