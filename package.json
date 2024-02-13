@@ -13,6 +13,7 @@
     "@vercel/postgres": "^0.7.2",
     "fs-extra": "^11.2.0",
     "next": "14.1.0",
+    "pg": "^8.11.3",
     "react": "^18",
     "react-dom": "^18"
   },

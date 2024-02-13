@@ -1,30 +1,27 @@
-import fs from 'fs';
-import path from 'path';
+import { Pool } from 'pg';
+
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false
+  }
+});
 
 export default async function handler(req, res) {
   if (req.method === 'POST') {
-    const data = req.body;
-    const filePath = path.join(process.cwd(), 'src/app/[id]/proposal.json'); 
-
+    const { sender, recipient, message } = req.body;
     try {
-      const existingData = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
+      const client = await pool.connect();
+      const query = 'INSERT INTO Messages (sender, receiver, message) VALUES ($1, $2, $3) RETURNING *';
+      const values = [sender, recipient, message];
 
-      let lastIndex = 0;
-      for (const key in existingData) {
-        if (parseInt(key) > lastIndex) {
-          lastIndex = parseInt(key);
-        }
-      }
+      const result = await client.query(query, values);
+      client.release();
 
-      const newIndex = lastIndex + 1;
-      existingData[newIndex] = data;
-
-      fs.writeFileSync(filePath, JSON.stringify(existingData, null, 2));
-
-      res.status(200).json({ message: 'Data appended to JSON file successfully' });
+      res.status(200).json({ message: 'Data inserted into Messages table successfully', insertedData: result.rows[0] });
     } catch (error) {
-      console.error('Error appending data to JSON file:', error);
-      res.status(500).json({ message: 'Failed to append data to JSON file' });
+      console.error('Error inserting data into Messages table:', error);
+      res.status(500).json({ message: 'Failed to insert data into Messages table' });
     }
   } else {
     res.status(405).json({ message: 'Method Not Allowed' });
