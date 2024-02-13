@@ -55,7 +55,7 @@ export default function EndpointPage() {
         return 50 - noClickCount * 10 + '%';
     };
 
-  
+
     return (
         <div>
             <link rel="icon" href="/favicon/favicon.ico" sizes="any" />
