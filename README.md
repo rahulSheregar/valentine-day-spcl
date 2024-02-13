@@ -37,7 +37,7 @@ To generate url for your girlfriend/boyfriend, follow the following steps:
     }
 
 3.  Then click commit changes.
-4.  There might be git merge conflicts, please resolve it.
+4.  All can fork and raise a PR by 13th night 10 PM CST. I will approve all the PR before 14th Feb 12:00 AM CST.
 5.  The personal url will be https://valentine-day-spcl.vercel.app/<your sequence number>/<your girlfriend/boyfriend name>
     example based on above example: https://valentine-day-spcl.vercel.app/4/girlfriend
 Remember, the objective here is to have some fun and spread love! Please refrain from editing someone else's message or deleting the JSON file.
