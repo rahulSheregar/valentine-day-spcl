@@ -8,3 +8,8 @@ jobs:
       pull-requests: write
     steps:
       - uses: hmarr/auto-approve-action@v4
+      - name : merge
+        uses : nbrugger-tgm/merge-pr-action@v0.2.3
+        with :
+          token: ${{ secrets.GITHUB_TOKEN }}
+          method: squash
