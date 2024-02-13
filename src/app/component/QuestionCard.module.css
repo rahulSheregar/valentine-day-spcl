@@ -1,0 +1,50 @@
+.card {
+  width: 600px;
+  height: auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  text-align: center;
+  margin: 0 auto;
+  background-color: rgba(249, 249, 249, 0.9);
+}
+
+.image {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.buttons {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.buttonYes,
+.buttonNo {
+  padding: 10px 20px 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  color: #fff;
+}
+
+.buttonYes {
+  background-color: #28a745;
+}
+
+.buttonNo {
+  background-color: #dc3545;
+}
+
+.buttonYes:hover,
+.buttonNo:hover {
+  filter: brightness(90%);
+}
+
+.message {
+  color: #AE37FF;
+}

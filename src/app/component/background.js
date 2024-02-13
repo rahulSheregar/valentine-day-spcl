@@ -1,19 +1,18 @@
 'use client'
 import React from 'react';
 
-const BackgroundContainer = ({ children }) => {
+const BackgroundContainer = ({ children, sourceName }) => {
   return (
-    <div className="background-container">
+    <div className="background-container" style={{backgroundImage: `url('${sourceName}')`, }}>
       {children}
       <style jsx>{`
         .background-container {
           position: relative;
           width: 100%;
           height: 100vh;
-          background-image: url('/heart-animation.gif');
           background-size: cover;
           background-position: center;
-          /* Add other styles as needed */
+          
         }
       `}</style>
     </div>

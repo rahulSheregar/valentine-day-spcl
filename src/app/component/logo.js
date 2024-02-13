@@ -2,8 +2,8 @@
 import React, { useState } from 'react';
 
 const CenteredImage = ({ src }) => {
-  const [width, setWidth] = useState(200); // Initial width
-  const [height, setHeight] = useState(200); // Initial height
+  const [width, setWidth] = useState(200);
+  const [height, setHeight] = useState(200);
 
   const handleResize = (e) => {
     setWidth(e.target.offsetWidth);
