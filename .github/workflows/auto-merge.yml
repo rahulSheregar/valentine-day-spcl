@@ -1,0 +1,28 @@
+name: Auto Merge Pull Requests
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  merge_pull_request:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Merge Pull Request
+        run: |
+          # Ensure we're on the main branch
+          git checkout main
+          # Fetch the latest changes
+          git pull origin main
+          # Get the pull request number
+          PR_NUMBER=$(echo "${{ github.event.pull_request.url }}" | awk -F'/' '{print $NF}')
+          # Merge the pull request
+          git fetch origin pull/${PR_NUMBER}/head:pr-${PR_NUMBER}
+          git merge --no-ff pr-${PR_NUMBER} -m "Auto-merge PR #${PR_NUMBER}"
+          # Push the changes
+          git push origin main
+
