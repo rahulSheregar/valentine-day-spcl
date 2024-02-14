@@ -77,7 +77,10 @@ const MessageForm = () => {
             </div>
           ) : (
             <React.Fragment>
-              <h2 className={cali.className} style={{ fontSize: '34px', textAlign: 'center', fontWeight: 'bold'}}>Create your personalised V&#9829;alentine link</h2>
+              {
+        //eslint-disable-next-line react/jsx-no-target-blank
+        }
+              <h2 className={cali.className} style={{ fontSize: '34px', textAlign: 'center', fontWeight: 'bold'}}>Create your personalised V&#9829;alentine link</h2> 
               <form onSubmit={handleSubmit}>
                 <div className={styles.formGroup}>
                   <label htmlFor="sender" className={dosis.className}  style={{fontWeight: 'bold'}}>Your name:</label>
