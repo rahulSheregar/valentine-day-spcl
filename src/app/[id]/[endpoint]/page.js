@@ -15,19 +15,29 @@ export default function EndpointPage({ params }) {
   const router = useRouter();
 
   useEffect(() => {
-    const isValidEndpoint = () => {
-      if (jsondata[id]) {
-        const senderName = jsondata[id].sender;
-        const recipientName = jsondata[id].recipient;
-        const [senderNameFromUrl, action, recipientNameFromUrl] = endpoint.split('_');
-        console.log(senderName,senderNameFromUrl);
-        console.log(recipientName,recipientNameFromUrl);
-        if (senderName === senderNameFromUrl && recipientName === recipientNameFromUrl) {
-          setMessage(jsondata[id].message);
+    const isValidEndpoint = async () => {
+      const data = { message_id : id};
+      try {
+        const response = await fetch('/api/read-json', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data),
+        });
+      
+        if (response.ok) {
+          const responseData = await response.json();
+          console.log('Data received from server:', responseData);
+          setMessage(responseData.row['message']);
           return true;
+        } else {
+          console.error('Failed to receive data from server');
         }
+      } catch (error) {
+        console.error('Error receiving data from server:', error);
       }
-    
+        
       return false;
     };
 

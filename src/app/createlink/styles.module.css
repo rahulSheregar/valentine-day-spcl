@@ -25,7 +25,6 @@
     margin-bottom: 20px;
   }
   
-  /* Add a local class to make the selector pure */
   .formLabel {
     font-weight: bold;
   }
@@ -53,3 +52,34 @@
     background-color: #0056b3;
   }
   
+  .message {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .urlContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .url {
+    font-size: 18px;
+    margin-bottom: 20px;
+  }
+  
+  .copyButton {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+  }
