@@ -1,19 +1,20 @@
 'use client'
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import React from 'react';
 import styles from './styles.module.css';
 import BackgroundContainer from '@/app/component/background';
+import { Sacramento, Dosis} from 'next/font/google'
+const cali = Sacramento({ subsets: ['latin'],  weight: ["400"] });
+const dosis = Dosis({ subsets: ['latin'] });
 
 const MessageForm = () => {
   const [sender, setSender] = useState('');
   const [recipient, setRecipient] = useState('');
   const [message, setMessage] = useState('');
   const [url, setURL] = useState('');
-  useEffect(() => {
-    console.log(url);
-  }, [url]);
-  
+
+
   const sendDataToServer = async (data) => {
     try {
       const response = await fetch('/api/write-json', {
@@ -62,7 +63,10 @@ const MessageForm = () => {
   };
 
   return (
-    <BackgroundContainer sourceName="/bg.png">
+    
+    <BackgroundContainer sourceName="/10.jpg">
+    <link rel="icon" href="/favicon/favicon.ico" sizes="any" />
+
       <div className={styles.container}>
         <div className={styles.card}>
           {url ? (
@@ -73,10 +77,10 @@ const MessageForm = () => {
             </div>
           ) : (
             <React.Fragment>
-              <h2 className={styles.heading}>Create a Personal Link..!</h2>
+              <h2 className={cali.className} style={{ fontSize: '34px', textAlign: 'center', fontWeight: 'bold'}}>Create your personalised V&#9829;alentine link</h2>
               <form onSubmit={handleSubmit}>
                 <div className={styles.formGroup}>
-                  <label htmlFor="sender" className={styles.formLabel}>Sender:</label>
+                  <label htmlFor="sender" className={dosis.className}  style={{fontWeight: 'bold'}}>Your name:</label>
                   <input
                     type="text"
                     id="sender"
@@ -86,7 +90,7 @@ const MessageForm = () => {
                   />
                 </div>
                 <div className={styles.formGroup}>
-                  <label htmlFor="recipient" className={styles.formLabel}>Recipient:</label>
+                  <label htmlFor="recipient" className={dosis.className} style={{fontWeight: 'bold'}}>Your Valentine's name:</label>
                   <input
                     type="text"
                     id="recipient"
@@ -96,7 +100,7 @@ const MessageForm = () => {
                   />
                 </div>
                 <div className={styles.formGroup}>
-                  <label htmlFor="message" className={styles.formLabel}>Message:</label>
+                  <label htmlFor="message" className={dosis.className}  style={{fontWeight: 'bold'}}>Words from heart:</label>
                   <textarea
                     id="message"
                     value={message}
