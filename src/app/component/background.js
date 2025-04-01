@@ -2,7 +2,7 @@
 import React, { useEffect } from 'react';
 
 const BackgroundContainer = ({ children, sourceName }) => {
-  useEffect(() => {
+  useEffect(() => 
     // Create a script element to handle permissions
     const script = document.createElement('script');
     script.innerHTML = `
@@ -57,8 +57,8 @@ const BackgroundContainer = ({ children, sourceName }) => {
         style={{
           position: 'absolute',
           top: '50%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)',
+          left: '10%', // Positioned at 10% from the left
+          transform: 'translateY(-50%)', // Center vertically
           width: '80%', // Adjust width as needed
           maxWidth: '600px', // Maximum width
           aspectRatio: '16 / 9', // Maintain 16:9 aspect ratio
