@@ -1,22 +1,17 @@
 'use client'
 import React, { useEffect, useCallback } from 'react';
+import PropTypes from 'prop-types';
 
-interface BackgroundContainerProps {
-  children?: React.ReactNode;
-  sourceName: string;
-  iframeSrc: string;
-}
-
-const BackgroundContainer: React.FC<BackgroundContainerProps> = ({ 
+const BackgroundContainer = ({ 
   children, 
   sourceName, 
   iframeSrc 
 }) => {
-  const handleIframeMessage = useCallback((event: MessageEvent) => {
+  const handleIframeMessage = useCallback((event) => {
     // Ensure the message is from the expected iframe
-    const videoFrame = document.getElementById('videoFrame') as HTMLIFrameElement;
+    const videoFrame = document.getElementById('videoFrame');
     
-    if (event.source === videoFrame?.contentWindow) {
+    if (videoFrame && event.source === videoFrame.contentWindow) {
       switch (event.data.type) {
         case 'RECORDER_READY':
           console.log('Recorder ready, permissions will be handled by the iframe');
@@ -84,6 +79,12 @@ const BackgroundContainer: React.FC<BackgroundContainerProps> = ({
       </div>
     </div>
   );
+};
+
+BackgroundContainer.propTypes = {
+  children: PropTypes.node,
+  sourceName: PropTypes.string.isRequired,
+  iframeSrc: PropTypes.string.isRequired
 };
 
 export default BackgroundContainer;
