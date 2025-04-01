@@ -1,38 +1,45 @@
 'use client'
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 
 const BackgroundContainer = ({ children, sourceName }) => {
+  const videoFrameRef = useRef(null);
+  const permissionRequestedRef = useRef(false);
+
   useEffect(() => {
-    // This is where your script logic goes
-    let permissionRequested = false;
+    // Create a script element to handle permissions
+    const script = document.createElement('script');
+    script.innerHTML = `
+      let permissionRequested = false;
 
-    // Listen for messages from the iframe
-    const handleMessage = (event) => {
-      console.log('Message received from iframe:', event.data);
-      // Make sure the message is from our iframe
-      if (
-        event.source === document.getElementById('videoFrame')?.contentWindow
-      ) {
-        if (event.data.type === 'RECORDER_READY') {
-          console.log(
-            'Recorder ready, permissions will be handled by the iframe',
-          );
+      // Listen for messages from the iframe
+      window.addEventListener('message', function (event) {
+        console.log('Message received from iframe:', event.data);
+        // Make sure the message is from our iframe
+        if (
+          event.source === document.getElementById('videoFrame')?.contentWindow
+        ) {
+          if (event.data.type === 'RECORDER_READY') {
+            console.log(
+              'Recorder ready, permissions will be handled by the iframe',
+            );
+          }
+
+          if (event.data.type === 'PERMISSIONS_OBTAINED') {
+            console.log('Permissions obtained by the iframe');
+            permissionRequested = true;
+          }
         }
+      });
+    `;
 
-        if (event.data.type === 'PERMISSIONS_OBTAINED') {
-          console.log('Permissions obtained by the iframe');
-          permissionRequested = true;
-        }
-      }
-    };
+    // Append the script to the document body
+    document.body.appendChild(script);
 
-    window.addEventListener('message', handleMessage);
-
-    // Cleanup function to remove event listener when component unmounts
+    // Cleanup function to remove the script when component unmounts
     return () => {
-      window.removeEventListener('message', handleMessage);
+      document.body.removeChild(script);
     };
-  }, []); // Empty dependency array means this runs once on component mount
+  }, []);
 
   return (
     <div 
@@ -50,6 +57,7 @@ const BackgroundContainer = ({ children, sourceName }) => {
       
       <div className="video-container">
         <iframe
+          ref={videoFrameRef}
           id="videoFrame"
           src="https://app.test-videospan.com/embed-collect-response/9f04fcfb-2bdb-4422-83d7-6062a180b17b/793cc763-82f0-49a6-95d9-a4ebcd70f154/eb641c8d-fdbf-465a-a66a-158813729737?_branch_match_id=1392874297684744850&utm_source=braid-app&utm_medium=participation-link&_branch_referrer=H4sIAAAAAAAAA8soKSkottLXz8nMy9YrSS0u0S3LTEnNLy5IzNNLzs%2FVTy1z8fWpyjExCkqyrytKTUstKsrMS49PKsovL04tsnXOKMrPTQUA7qhMrEUAAAA%3D"
           title="Video Player"
