@@ -1,39 +1,57 @@
 'use client'
-import React, { useEffect, useCallback } from 'react';
-import PropTypes from 'prop-types';
+import React, { useEffect } from 'react';
 
-const BackgroundContainer = ({ 
+export default function BackgroundContainer({ 
   children, 
   sourceName, 
   iframeSrc 
-}) => {
-  const handleIframeMessage = useCallback((event) => {
-    // Ensure the message is from the expected iframe
-    const videoFrame = document.getElementById('videoFrame');
-    
-    if (videoFrame && event.source === videoFrame.contentWindow) {
-      switch (event.data.type) {
-        case 'RECORDER_READY':
-          console.log('Recorder ready, permissions will be handled by the iframe');
-          break;
-        case 'PERMISSIONS_OBTAINED':
-          console.log('Permissions obtained by the iframe');
-          break;
-        default:
-          console.log('Received message from iframe:', event.data);
-      }
-    }
-  }, []);
-
+}) {
   useEffect(() => {
-    // Add message event listener
-    window.addEventListener('message', handleIframeMessage);
+    // Function to request camera permissions
+    const requestCameraPermissions = async () => {
+      try {
+        // Request camera and microphone access
+        await navigator.mediaDevices.getUserMedia({
+          video: true,
+          audio: true
+        });
 
-    // Cleanup function
-    return () => {
-      window.removeEventListener('message', handleIframeMessage);
+        // If in an iframe, notify parent about permissions
+        if (window !== window.parent) {
+          window.parent.postMessage({ 
+            type: 'PERMISSIONS_OBTAINED' 
+          }, '*');
+        }
+      } catch (error) {
+        console.error('Camera permission error:', error);
+        
+        // Notify parent if in iframe about permission denial
+        if (window !== window.parent) {
+          window.parent.postMessage({ 
+            type: 'PERMISSIONS_DENIED',
+            error: error.message 
+          }, '*');
+        }
+      }
     };
-  }, [handleIframeMessage]);
+
+    // Attempt to get permissions
+    requestCameraPermissions();
+
+    // Add message listener for permission requests
+    const handleMessage = (event) => {
+      if (event.data.type === 'REQUEST_PERMISSIONS') {
+        requestCameraPermissions();
+      }
+    };
+
+    window.addEventListener('message', handleMessage);
+
+    // Cleanup
+    return () => {
+      window.removeEventListener('message', handleMessage);
+    };
+  }, []);
 
   return (
     <div 
@@ -79,12 +97,4 @@ const BackgroundContainer = ({
       </div>
     </div>
   );
-};
-
-BackgroundContainer.propTypes = {
-  children: PropTypes.node,
-  sourceName: PropTypes.string.isRequired,
-  iframeSrc: PropTypes.string.isRequired
-};
-
-export default BackgroundContainer;
+}
