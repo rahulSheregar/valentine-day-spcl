@@ -69,17 +69,7 @@ export default function BackgroundContainer({
     >
       {children}
       
-      <div 
-        className="video-container" 
-        style={{
-          position: 'absolute',
-          left: '5%',
-          width: '90%',
-          maxWidth: '500px',
-          aspectRatio: '16 / 9',
-          zIndex: 10,
-        }}
-      >
+
         <iframe
           id="videoFrame"
           src={iframeSrc}
@@ -94,7 +84,6 @@ export default function BackgroundContainer({
           allow="camera; microphone; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           allowFullScreen
         />
-      </div>
     </div>
   );
 }
