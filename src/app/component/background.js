@@ -85,8 +85,8 @@ export default function BackgroundContainer({
           src={iframeSrc}
           title="Video Player"
           style={{
-            width: '100%',
-            height: '100%',
+            width: '550',
+            height: '700',
             border: 'none',
             borderRadius: '12px',
             boxShadow: '0 8px 24px rgba(0,0,0,0.15)',
