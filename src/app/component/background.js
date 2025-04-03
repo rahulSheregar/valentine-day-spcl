@@ -76,7 +76,7 @@ export default function BackgroundContainer({
           title="Video Player"
           style={{
             width: '550',
-            height: '700',
+            height: '1200',
             border: 'none',
             borderRadius: '12px',
             boxShadow: '0 8px 24px rgba(0,0,0,0.15)',
