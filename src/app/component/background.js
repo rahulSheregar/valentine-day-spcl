@@ -1,6 +1,5 @@
 'use client'
 import React, { useEffect } from 'react';
-
 export default function BackgroundContainer({ 
   children, 
   sourceName, 
@@ -15,7 +14,6 @@ export default function BackgroundContainer({
           video: true,
           audio: true
         });
-
         // If in an iframe, notify parent about permissions
         if (window !== window.parent) {
           window.parent.postMessage({ 
@@ -34,25 +32,20 @@ export default function BackgroundContainer({
         }
       }
     };
-
     // Attempt to get permissions
     requestCameraPermissions();
-
     // Add message listener for permission requests
     const handleMessage = (event) => {
       if (event.data.type === 'REQUEST_PERMISSIONS') {
         requestCameraPermissions();
       }
     };
-
     window.addEventListener('message', handleMessage);
-
     // Cleanup
     return () => {
       window.removeEventListener('message', handleMessage);
     };
   }, []);
-
   return (
     <div 
       className="background-container" 
@@ -69,21 +62,20 @@ export default function BackgroundContainer({
     >
       {children}
       
-
-        <iframe
-          id="videoFrame"
-          src={iframeSrc}
-          title="Video Player"
-          style={{
-            width: '550',
-            height: '1200',
-            border: 'none',
-            borderRadius: '12px',
-            boxShadow: '0 8px 24px rgba(0,0,0,0.15)',
-          }}
-          allow="camera; microphone; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          allowFullScreen
-        />
+      <iframe
+        id="videoFrame"
+        src={iframeSrc}
+        title="Video Player"
+        style={{
+          width: '500px',
+          height: '700px',
+          border: 'none',
+          borderRadius: '12px',
+          boxShadow: '0 8px 24px rgba(0,0,0,0.15)',
+        }}
+        allow="camera; microphone; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowFullScreen
+      />
     </div>
   );
 }
