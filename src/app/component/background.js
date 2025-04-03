@@ -6,52 +6,52 @@
    sourceName, 
    iframeSrc 
  }) {
-   useEffect(() => {
-     // Function to request camera permissions
-     const requestCameraPermissions = async () => {
-       try {
-         // Request camera and microphone access
-         await navigator.mediaDevices.getUserMedia({
-           video: true,
-           audio: true
-         });
+   // useEffect(() => {
+   //   // Function to request camera permissions
+   //   const requestCameraPermissions = async () => {
+   //     try {
+   //       // Request camera and microphone access
+   //       await navigator.mediaDevices.getUserMedia({
+   //         video: true,
+   //         audio: true
+   //       });
  
-         // If in an iframe, notify parent about permissions
-         if (window !== window.parent) {
-           window.parent.postMessage({ 
-             type: 'PERMISSIONS_OBTAINED' 
-           }, '*');
-         }
-       } catch (error) {
-         console.error('Camera permission error:', error);
+   //       // If in an iframe, notify parent about permissions
+   //       if (window !== window.parent) {
+   //         window.parent.postMessage({ 
+   //           type: 'PERMISSIONS_OBTAINED' 
+   //         }, '*');
+   //       }
+   //     } catch (error) {
+   //       console.error('Camera permission error:', error);
  
-         // Notify parent if in iframe about permission denial
-         if (window !== window.parent) {
-           window.parent.postMessage({ 
-             type: 'PERMISSIONS_DENIED',
-             error: error.message 
-           }, '*');
-         }
-       }
-     };
+   //       // Notify parent if in iframe about permission denial
+   //       if (window !== window.parent) {
+   //         window.parent.postMessage({ 
+   //           type: 'PERMISSIONS_DENIED',
+   //           error: error.message 
+   //         }, '*');
+   //       }
+   //     }
+   //   };
  
-     // Attempt to get permissions
-     requestCameraPermissions();
+   //   // Attempt to get permissions
+   //   requestCameraPermissions();
  
-     // Add message listener for permission requests
-     const handleMessage = (event) => {
-       if (event.data.type === 'REQUEST_PERMISSIONS') {
-         requestCameraPermissions();
-       }
-     };
+   //   // Add message listener for permission requests
+   //   const handleMessage = (event) => {
+   //     if (event.data.type === 'REQUEST_PERMISSIONS') {
+   //       requestCameraPermissions();
+   //     }
+   //   };
  
-     window.addEventListener('message', handleMessage);
+   //   window.addEventListener('message', handleMessage);
  
-     // Cleanup
-     return () => {
-       window.removeEventListener('message', handleMessage);
-     };
-   }, []);
+   //   // Cleanup
+   //   return () => {
+   //     window.removeEventListener('message', handleMessage);
+   //   };
+   // }, []);
  
   return (
     <div 
