@@ -69,10 +69,10 @@
     >
       {children}
       
-         <iframe
+            <iframe
           width="560"
           height="315"
-          src="https://app.test-videospan.com/embed/cba88210-4faf-4b48-8ab2-4c1d60af74b5/3bc09d159a43d2ccfb57?autoplay=1"
+          src="https://app.test-videospan.com/embed/cba88210-4faf-4b48-8ab2-4c1d60af74b5/3bc09d159a43d2ccfb57?autoplay=1&mute=1&start=0"
           title="Video Player"
           frameborder="0"
           allow="autoplay; accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
