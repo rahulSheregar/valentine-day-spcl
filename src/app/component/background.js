@@ -69,20 +69,16 @@
     >
       {children}
       
-      <iframe
-        id="videoFrame"
-        src={iframeSrc}
-        title="Video Player"
-        style={{
-          width: '500px',
-          height: '700px',
-          border: 'none',
-          borderRadius: '12px',
-          boxShadow: '0 8px 24px rgba(0,0,0,0.15)',
-        }}
-        allow="camera; microphone; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        allowFullScreen
-      />
+         <iframe
+          width="560"
+          height="315"
+          src="https://app.test-videospan.com/embed/cba88210-4faf-4b48-8ab2-4c1d60af74b5/3bc09d159a43d2ccfb57?autoplay=1"
+          title="Video Player"
+          frameborder="0"
+          allow="autoplay; accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerpolicy="strict-origin-when-cross-origin"
+          allowfullscreen
+        ></iframe>
     </div>
   );
 }
